@@ -3,6 +3,8 @@
  */
 package com.sumset.techsupport.models;
 
+import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Table(name = "ts_empresa")
-public class EmpresaModel {
+public class Empresa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,9 @@ public class EmpresaModel {
 	
 	@Column(name = "emp_nit", unique = true, nullable = false, length = 20)
 	private String empNit;
+	
+	@Column(name = "emp_telefono", length = 20)
+	private String empTelefono;
 	
 	@Column(name = "emp_logo")
 	private byte[] empLogo;
@@ -69,11 +74,19 @@ public class EmpresaModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String getEmpTelefono() {
+		return empTelefono;
+	}
+
+	public void setEmpTelefono(String empTelefono) {
+		this.empTelefono = empTelefono;
+	}
 
 	@Override
 	public String toString() {
-		return "EmpresaModel [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empLogo=" + empLogo
-				+ "]";
+		return "Empresa [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empTelefono=" + empTelefono
+				+ ", empLogo=" + Arrays.toString(empLogo) + "]";
 	}
 
 }

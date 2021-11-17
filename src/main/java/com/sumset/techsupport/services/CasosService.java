@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sumset.techsupport.models.CasosModel;
+import com.sumset.techsupport.models.Casos;
 import com.sumset.techsupport.repositories.CasosRepository;
 
 /**
@@ -22,15 +22,15 @@ public class CasosService {
 	@Autowired
 	CasosRepository casosRepo;
 	
-	public ArrayList<CasosModel> obtenerTodosCasos()  throws Exception {
-		return (ArrayList<CasosModel>) casosRepo.findAll();
+	public ArrayList<Casos> obtenerTodosCasos()  throws Exception {
+		return (ArrayList<Casos>) casosRepo.findAll();
 	}
 	
-	public CasosModel guardarCaso(CasosModel caso) throws Exception {
+	public Casos guardarCaso(Casos caso) throws Exception {
 		return casosRepo.save(caso);
 	}
 	
-	public Optional<CasosModel> obtenerCasoPorId(Long id) throws Exception {
+	public Optional<Casos> obtenerCasoPorId(Long id) throws Exception {
 		return casosRepo.findById(id);
 	}
 	

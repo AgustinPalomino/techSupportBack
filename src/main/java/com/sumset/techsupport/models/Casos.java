@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ts_casos")
-public class CasosModel {
+public class Casos {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +33,6 @@ public class CasosModel {
 	@Column(name = "cas_tipo", nullable = false)
 	private String casTipo;
 
-	@Column(name = "cas_categoria", nullable = false)
-	private String casCategoria;
-	
 	@Column(name = "cas_severidad", nullable = false)
 	private String casSeveridad;
 	
@@ -50,7 +47,10 @@ public class CasosModel {
 	
 	@JoinColumn(name = "cas_usr_id", referencedColumnName = "usr_id")
 	@ManyToOne
-	private UsuariosModel usuario;
+	private Usuarios usuario;
+	
+	@Column(name = "cas_atiende_usr_id", length = 20)
+	private String casAtiende;
 	
 	@Column(name = "cas_fecha_finalizado")
 	private Date casFechaFinalizado;
@@ -78,14 +78,6 @@ public class CasosModel {
 
 	public void setCasTipo(String casTipo) {
 		this.casTipo = casTipo;
-	}
-
-	public String getCasCategoria() {
-		return casCategoria;
-	}
-
-	public void setCasCategoria(String casCategoria) {
-		this.casCategoria = casCategoria;
 	}
 
 	public String getCasSeveridad() {
@@ -120,11 +112,11 @@ public class CasosModel {
 		this.casAdjuntos = casAdjuntos;
 	}
 
-	public UsuariosModel getUsuario() {
+	public Usuarios getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(UsuariosModel usuario) {
+	public void setUsuario(Usuarios usuario) {
 		this.usuario = usuario;
 	}
 
@@ -135,13 +127,21 @@ public class CasosModel {
 	public void setCasFechaFinalizado(Date casFechaFinalizado) {
 		this.casFechaFinalizado = casFechaFinalizado;
 	}
+	
+	public String getCasAtiende() {
+		return casAtiende;
+	}
+
+	public void setCasAtiende(String casAtiende) {
+		this.casAtiende = casAtiende;
+	}
 
 	@Override
 	public String toString() {
-		return "CasosModel [id=" + id + ", casFecha=" + casFecha + ", casTipo=" + casTipo + ", casCategoria="
-				+ casCategoria + ", casSeveridad=" + casSeveridad + ", casSubject=" + casSubject + ", casDescripcion="
-				+ casDescripcion + ", casAdjuntos=" + casAdjuntos + ", usuario=" + usuario + ", casFechaFinalizado="
-				+ casFechaFinalizado + "]";
+		return "Casos [id=" + id + ", casFecha=" + casFecha + ", casTipo=" + casTipo + ", casSeveridad=" + casSeveridad
+				+ ", casSubject=" + casSubject + ", casDescripcion=" + casDescripcion + ", casAdjuntos=" + casAdjuntos
+				+ ", usuario=" + usuario + ", casAtiende=" + casAtiende + ", casFechaFinalizado=" + casFechaFinalizado
+				+ "]";
 	}
-	
+
 }

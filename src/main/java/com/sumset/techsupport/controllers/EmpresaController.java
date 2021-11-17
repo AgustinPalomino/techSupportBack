@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sumset.techsupport.models.EmpresaModel;
-import com.sumset.techsupport.models.UsuariosModel;
+import com.sumset.techsupport.models.Empresa;
+import com.sumset.techsupport.models.Usuarios;
 import com.sumset.techsupport.services.EmpresaService;
 
 /**
@@ -29,29 +30,28 @@ import com.sumset.techsupport.services.EmpresaService;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/empresa")
+@RequestMapping("/home/empresa")
 public class EmpresaController {
 	
 	@Autowired
 	EmpresaService empresaService;
 	
 	@RequestMapping(value = "obtenertodas", method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<EmpresaModel>> obtenerEmpresas() throws Exception {
-		ArrayList<EmpresaModel> empresas = empresaService.obtenerTodasEmpresas();
-		return ResponseEntity.ok(empresas);
+	public ResponseEntity<ArrayList<Empresa>> obtenerEmpresas() throws Exception {
+		ArrayList<Empresa> empresas = empresaService.obtenerTodasEmpresas();
+		return ResponseEntity.status(200).body(empresas);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "crear", method = RequestMethod.POST)
-	public ResponseEntity<EmpresaModel> crearEmpresa(@RequestBody EmpresaModel empresa) throws Exception {
-		System.out.println("ESTOY EN CREAR");
-		EmpresaModel empresaCreada = empresaService.crearEmpresa(empresa);
-		return ResponseEntity.ok(empresaCreada);
+	public ResponseEntity<Empresa> crearEmpresa(@RequestBody Empresa empresa) throws Exception {
+		Empresa empresaCreada = empresaService.crearEmpresa(empresa);
+		return ResponseEntity.status(200).body(empresaCreada);
 	}
 	
-	@RequestMapping(value = "{id}")
-	public ResponseEntity<EmpresaModel> obtenerEmpresaPorId(@PathVariable("id") Long id) throws Exception {
-		Optional<EmpresaModel> empresa = empresaService.obtenerEmpresaPorId(id);
+	//@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "porid/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Empresa> obtenerEmpresaPorId(@PathVariable("id") Long id) throws Exception {
+		Optional<Empresa> empresa = empresaService.obtenerEmpresaPorId(id);
 		if (empresa.isPresent()) {
 			return ResponseEntity.ok(empresa.get());
 		} else {
@@ -59,7 +59,7 @@ public class EmpresaController {
 		}
 	}
 	
-	@RequestMapping(value = "borrar/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "borrar/{id}", method = RequestMethod.POST)
 	public String eliminarEmpresa(@PathVariable("id") Long id) throws Exception {
 		boolean ok = this.empresaService.eliminarEmpresa(id);
 		if (ok) {
@@ -69,9 +69,9 @@ public class EmpresaController {
 		}
 	}
 	
-	@RequestMapping(value = "buscarnit/{nit}", method = RequestMethod.GET)
-	public ResponseEntity<EmpresaModel> obtenerEmpresaPorNit(@PathVariable("nit") String nit) throws Exception {
-		EmpresaModel empresa = empresaService.obtenerEmpresaPorNit(nit);
+	@RequestMapping(value = "buscarnit/{nit}", method = RequestMethod.POST)
+	public ResponseEntity<Empresa> obtenerEmpresaPorNit(@PathVariable("nit") String nit) throws Exception {
+		Empresa empresa = empresaService.obtenerEmpresaPorNit(nit);
 		if (empresa != null) {
 			return ResponseEntity.ok(empresa);
 		}

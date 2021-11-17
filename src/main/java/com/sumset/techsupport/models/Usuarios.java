@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ts_usuarios")
-public class UsuariosModel {
+public class Usuarios {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class UsuariosModel {
 	
 	@JoinColumn(name = "usr_emp_id", referencedColumnName = "emp_id")
 	@ManyToOne
-	private EmpresaModel empresa;
+	private Empresa empresa;
 
 	//** Getters y setters
 	public Long getId() {
@@ -93,11 +93,11 @@ public class UsuariosModel {
 		this.usrRol = usrRol;
 	}
 
-	public EmpresaModel getEmpresa() {
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(EmpresaModel empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 

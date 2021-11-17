@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ts_referencia")
-public class ReferenciaModel {
+public class Referencia {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sumset.techsupport.models.CasosModel;
+import com.sumset.techsupport.models.Casos;
 import com.sumset.techsupport.services.CasosService;
 
 /**
@@ -25,24 +25,24 @@ import com.sumset.techsupport.services.CasosService;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/caso")
+@RequestMapping("/home/caso")
 public class CasosController {
 
 	@Autowired
 	CasosService casosService;
 	
 	@GetMapping()
-	public ArrayList<CasosModel> obtenerCasos() throws Exception {
+	public ArrayList<Casos> obtenerCasos() throws Exception {
 		return casosService.obtenerTodosCasos();
 	}
 	
 	@PostMapping()
-	public CasosModel guardarCaso(@RequestBody CasosModel caso) throws Exception {
+	public Casos guardarCaso(@RequestBody Casos caso) throws Exception {
 		return casosService.guardarCaso(caso);
 	}
 	
 	@GetMapping( path = "/{id}")
-	public Optional<CasosModel> obtenerCasoPorId(@PathVariable("id") Long id) throws Exception {
+	public Optional<Casos> obtenerCasoPorId(@PathVariable("id") Long id) throws Exception {
 		return casosService.obtenerCasoPorId(id);
 	}
 	

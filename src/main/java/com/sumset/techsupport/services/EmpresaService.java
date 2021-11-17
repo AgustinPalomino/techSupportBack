@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.sumset.techsupport.models.EmpresaModel;
+import com.sumset.techsupport.models.Empresa;
 import com.sumset.techsupport.repositories.EmpresaRepository;
 
 /**
@@ -23,15 +23,15 @@ public class EmpresaService {
 	@Autowired
 	EmpresaRepository empresaRepo;
 	
-	public ArrayList<EmpresaModel> obtenerTodasEmpresas() throws Exception {
-		return (ArrayList<EmpresaModel>) empresaRepo.findAll();
+	public ArrayList<Empresa> obtenerTodasEmpresas() throws Exception {
+		return (ArrayList<Empresa>) empresaRepo.findAll();
 	}
 	
-	public EmpresaModel crearEmpresa(EmpresaModel empresa) throws Exception {
+	public Empresa crearEmpresa(Empresa empresa) throws Exception {
 		return empresaRepo.save(empresa);
 	}
 
-	public Optional<EmpresaModel> obtenerEmpresaPorId(Long id) throws Exception {
+	public Optional<Empresa> obtenerEmpresaPorId(Long id) throws Exception {
 		return empresaRepo.findById(id);
 	}
 	
@@ -44,7 +44,7 @@ public class EmpresaService {
 		}
 	}
 	
-	public EmpresaModel obtenerEmpresaPorNit(String nit) throws Exception {
+	public Empresa obtenerEmpresaPorNit(String nit) throws Exception {
 		return empresaRepo.findByempNit(nit);
 	}
 	

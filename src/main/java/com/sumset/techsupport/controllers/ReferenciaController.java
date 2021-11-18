@@ -28,6 +28,7 @@ import com.sumset.techsupport.services.ReferenciaService;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/ref")
 public class ReferenciaController {
 	
@@ -61,7 +62,6 @@ public class ReferenciaController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "refporcod/{cod}", method = RequestMethod.POST)
 	public ResponseEntity<ArrayList<Referencia>> obtenerReferenciaPorRefCodigo(@PathVariable("cod") String cod) throws Exception {
 		System.out.println("ENTRO A REFCOD"+cod);
@@ -80,6 +80,16 @@ public class ReferenciaController {
 	public ResponseEntity<Referencia> obtenerRefPorCod(@PathVariable("cod") String cod) throws Exception {
 		Referencia ref = referenciaService.obtenerRefPorCod(cod);
 		if (ref != null) {
+			return ResponseEntity.ok(ref);
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@RequestMapping(value = "refpad", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<Referencia>> buscarRefPadre() throws Exception {
+		ArrayList<Referencia> ref = referenciaService.buscarRefPadre();
+		if (!ref.isEmpty()) {
 			return ResponseEntity.ok(ref);
 		} else {
 			return ResponseEntity.noContent().build();

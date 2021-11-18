@@ -45,11 +45,14 @@ public class ReferenciaService {
 	
 	public ArrayList<Referencia> obtenerReferenciaPorCodigo(String cod) throws Exception {
 		return referenciaRepo.findByRefRefCodigo(cod);
-		//return referenciaRepo.obtenerRefRefPorCod(cod);
 	}
 	
 	public Referencia obtenerRefPorCod(String cod) throws Exception {
 		return referenciaRepo.findByRefCodigo(cod);
+	}
+	
+	public ArrayList<Referencia> buscarRefPadre() throws Exception {
+		return referenciaRepo.buscarRefPadre();
 	}
 	
 }

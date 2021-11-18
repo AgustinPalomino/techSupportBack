@@ -27,7 +27,8 @@ import com.sumset.techsupport.services.UsuarioService;
  *
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/usuario")
 public class UsuarioController {
 	

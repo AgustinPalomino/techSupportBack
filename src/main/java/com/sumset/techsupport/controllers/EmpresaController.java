@@ -29,7 +29,7 @@ import com.sumset.techsupport.services.EmpresaService;
  *
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/empresa")
 public class EmpresaController {
 	
@@ -48,7 +48,6 @@ public class EmpresaController {
 		return ResponseEntity.status(200).body(empresaCreada);
 	}
 	
-	//@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "porid/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Empresa> obtenerEmpresaPorId(@PathVariable("id") Long id) throws Exception {
 		Optional<Empresa> empresa = empresaService.obtenerEmpresaPorId(id);

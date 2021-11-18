@@ -14,7 +14,7 @@ import com.sumset.techsupport.models.Empresa;
 import com.sumset.techsupport.repositories.EmpresaRepository;
 
 /**
- * @author Sumset
+ * @author Agustín Palomino Pardo
  *
  */
 @Service

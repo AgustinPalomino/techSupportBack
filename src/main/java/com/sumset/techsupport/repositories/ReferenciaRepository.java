@@ -31,4 +31,13 @@ public interface ReferenciaRepository extends CrudRepository<Referencia, Long> {
 	 * @return
 	 */
 	public abstract Referencia findByRefCodigo(String refCodigo);
+
+	/**
+	 * Query para consultar las Referencias padre
+	 * @return
+	 */
+	@Query(value = "select * from ts_referencia where ref_ref_codigo is null", nativeQuery = true)
+	public ArrayList<Referencia> buscarRefPadre();
+	
+	
 }

@@ -30,8 +30,11 @@ public class Casos {
 	@Column(name = "cas_fecha", nullable = false)
 	private Date casFecha;
 	
-	@Column(name = "cas_tipo", nullable = false)
+	@Column(name = "cas_tipo", nullable = false, length = 4)
 	private String casTipo;
+	
+	@Column(name = "cas_categoria", nullable = false, length = 4)
+	private String casCategoria;
 
 	@Column(name = "cas_severidad", nullable = false)
 	private String casSeveridad;
@@ -136,12 +139,20 @@ public class Casos {
 		this.casAtiende = casAtiende;
 	}
 
+	public String getCasCategoria() {
+		return casCategoria;
+	}
+
+	public void setCasCategoria(String casCategoria) {
+		this.casCategoria = casCategoria;
+	}
+
 	@Override
 	public String toString() {
-		return "Casos [id=" + id + ", casFecha=" + casFecha + ", casTipo=" + casTipo + ", casSeveridad=" + casSeveridad
-				+ ", casSubject=" + casSubject + ", casDescripcion=" + casDescripcion + ", casAdjuntos=" + casAdjuntos
-				+ ", usuario=" + usuario + ", casAtiende=" + casAtiende + ", casFechaFinalizado=" + casFechaFinalizado
-				+ "]";
+		return "Casos [id=" + id + ", casFecha=" + casFecha + ", casTipo=" + casTipo + ", casCategoria=" + casCategoria
+				+ ", casSeveridad=" + casSeveridad + ", casSubject=" + casSubject + ", casDescripcion=" + casDescripcion
+				+ ", casAdjuntos=" + casAdjuntos + ", usuario=" + usuario + ", casAtiende=" + casAtiende
+				+ ", casFechaFinalizado=" + casFechaFinalizado + "]";
 	}
 
 }

@@ -25,8 +25,9 @@ import com.sumset.techsupport.services.CasosService;
  *
  */
 @RestController
+@CrossOrigin("*")
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/caso")
 public class CasosController {
 

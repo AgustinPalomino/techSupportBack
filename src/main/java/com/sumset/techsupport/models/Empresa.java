@@ -38,7 +38,8 @@ public class Empresa {
 	private String empTelefono;
 	
 	@Column(name = "emp_logo")
-	private byte[] empLogo;
+	//private byte[] empLogo;
+	private String empLogo;
 
 	//** Getters y setters
 	public Long getId() {
@@ -61,20 +62,29 @@ public class Empresa {
 		this.empNit = empNit;
 	}
 
-	@Lob
-    @Type(type = "org.hibernate.type.BinaryType")
-	public byte[] getEmpLogo() {
-		return empLogo;
-	}
-
-	public void setEmpLogo(byte[] empLogo) {
-		this.empLogo = empLogo;
-	}
+//	@Lob
+//    @Type(type = "org.hibernate.type.BinaryType")
+//	@Column(length = 1200000)
+//	public byte[] getEmpLogo() {
+//		return empLogo;
+//	}
+//
+//	public void setEmpLogo(byte[] empLogo) {
+//		this.empLogo = empLogo;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 	
+	public String getEmpLogo() {
+		return empLogo;
+	}
+
+	public void setEmpLogo(String empLogo) {
+		this.empLogo = empLogo;
+	}
+
 	public String getEmpTelefono() {
 		return empTelefono;
 	}
@@ -86,7 +96,13 @@ public class Empresa {
 	@Override
 	public String toString() {
 		return "Empresa [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empTelefono=" + empTelefono
-				+ ", empLogo=" + Arrays.toString(empLogo) + "]";
+				+ ", empLogo=" + empLogo + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Empresa [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empTelefono=" + empTelefono
+//				+ ", empLogo=" + Arrays.toString(empLogo) + "]";
+//	}
 
 }

@@ -29,7 +29,8 @@ import com.sumset.techsupport.services.EmpresaService;
  *
  */
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin("*")
+//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/empresa")
 public class EmpresaController {
 	
@@ -45,6 +46,7 @@ public class EmpresaController {
 	@RequestMapping(value = "crear", method = RequestMethod.POST)
 	public ResponseEntity<Empresa> crearEmpresa(@RequestBody Empresa empresa) throws Exception {
 		Empresa empresaCreada = empresaService.crearEmpresa(empresa);
+		//***** Ir a almacenar el archivo en la BD
 		return ResponseEntity.status(200).body(empresaCreada);
 	}
 	

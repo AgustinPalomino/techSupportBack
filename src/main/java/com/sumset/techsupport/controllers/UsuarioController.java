@@ -27,8 +27,9 @@ import com.sumset.techsupport.services.UsuarioService;
  *
  */
 @RestController
+@CrossOrigin("*")
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/home/usuario")
 public class UsuarioController {
 	
@@ -47,6 +48,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usr);
 	}
 
+	@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable("id") Long id) throws Exception {
 		Optional<Usuarios> usr = usuarioService.obtenerUsuarioPorId(id);

@@ -47,5 +47,9 @@ public class UsuarioService {
 	public Usuarios obtenerUsuarioPorMail(String mail) throws Exception {
 		return usuarioRepo.findByusrMail(mail);
 	}
+	
+	public Usuarios autenticarUsuario(String userMail, String userPass) throws Exception {
+		return usuarioRepo.autenticarUsuario(userMail, userPass);
+	}
 
 }

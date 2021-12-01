@@ -48,7 +48,7 @@ public class ReferenciaController {
 		return ResponseEntity.ok(ref);
 	}
 	
-	@GetMapping( path = "/{id}")
+	@GetMapping( path = "refporid/{id}")
 	public Optional<Referencia> obtenerReferenciaPorId(@PathVariable("id") Long id) throws Exception {
 		return this.referenciaService.obtenerReferenciaPorId(id);
 	}
@@ -63,22 +63,17 @@ public class ReferenciaController {
 		}
 	}
 	
-	@CrossOrigin("*")
 	@RequestMapping(value = "refporcod/{cod}", method = RequestMethod.POST)
 	public ResponseEntity<ArrayList<Referencia>> obtenerReferenciaPorRefCodigo(@PathVariable("cod") String cod) throws Exception {
-		System.out.println("ENTRO A REFCOD"+cod);
 		ArrayList<Referencia> ref = referenciaService.obtenerReferenciaPorCodigo(cod);
 		System.out.println("Respuesta:"+ref.toString());
 		if (!ref.isEmpty()) {
-			System.out.println("ok");
 			return ResponseEntity.ok(ref);
 		} else {
-			System.out.println("sin contenido");
 			return ResponseEntity.noContent().build();
 		}
 	}
 	
-	@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 	@RequestMapping(value = "refcod/{cod}", method = RequestMethod.POST)
 	public ResponseEntity<Referencia> obtenerRefPorCod(@PathVariable("cod") String cod) throws Exception {
 		Referencia ref = referenciaService.obtenerRefPorCod(cod);
@@ -89,7 +84,6 @@ public class ReferenciaController {
 		}
 	}
 	
-	@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 	@RequestMapping(value = "refpad", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Referencia>> buscarRefPadre() throws Exception {
 		ArrayList<Referencia> ref = referenciaService.buscarRefPadre();

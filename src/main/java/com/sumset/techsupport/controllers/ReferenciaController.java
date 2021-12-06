@@ -64,9 +64,8 @@ public class ReferenciaController {
 	}
 	
 	@RequestMapping(value = "refporcod/{cod}", method = RequestMethod.POST)
-	public ResponseEntity<ArrayList<Referencia>> obtenerReferenciaPorRefCodigo(@PathVariable("cod") String cod) throws Exception {
-		ArrayList<Referencia> ref = referenciaService.obtenerReferenciaPorCodigo(cod);
-		System.out.println("Respuesta:"+ref.toString());
+	public ResponseEntity<ArrayList<Referencia>> obtenerHijos(@PathVariable("cod") String cod) throws Exception {
+		ArrayList<Referencia> ref = referenciaService.obtenerHijos(cod);
 		if (!ref.isEmpty()) {
 			return ResponseEntity.ok(ref);
 		} else {

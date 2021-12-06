@@ -3,10 +3,14 @@
  */
 package com.sumset.techsupport.controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.LongPredicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sumset.techsupport.models.Casos;
+import com.sumset.techsupport.models.CasosTablaDTO;
 import com.sumset.techsupport.services.CasosService;
 
 /**
@@ -26,30 +31,36 @@ import com.sumset.techsupport.services.CasosService;
  */
 @RestController
 @CrossOrigin("*")
-//@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
-@RequestMapping("/home/caso")
+@RequestMapping("/home/casos")
 public class CasosController {
 
 	@Autowired
 	CasosService casosService;
 	
-	@GetMapping()
-	public ArrayList<Casos> obtenerCasos() throws Exception {
-		return casosService.obtenerTodosCasos();
+	@RequestMapping(value = "obtenertodos", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<Casos>> obtenerCasos() throws Exception {
+		System.out.println("Voy a ejecutar Query");
+		ArrayList<Casos> casos = casosService.obtenerTodosCasos();
+		return ResponseEntity.status(200).body(casos);
 	}
 	
-	@PostMapping()
-	public Casos guardarCaso(@RequestBody Casos caso) throws Exception {
-		return casosService.guardarCaso(caso);
+	@RequestMapping(value = "crear", method = RequestMethod.POST)
+	public ResponseEntity<Casos> crearCaso(@RequestBody Casos caso) throws Exception {
+		Casos casoCreado = casosService.guardarCaso(caso);
+		return ResponseEntity.status(200).body(casoCreado);
 	}
 	
-	@GetMapping( path = "/{id}")
-	public Optional<Casos> obtenerCasoPorId(@PathVariable("id") Long id) throws Exception {
-		return casosService.obtenerCasoPorId(id);
+	@RequestMapping(value = "porid/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Casos> obtenerCasoPorId(@PathVariable("id") Long id) throws Exception {
+		Optional<Casos> caso = casosService.obtenerCasoPorId(id);
+		if (caso.isPresent()) {
+			return ResponseEntity.ok(caso.get());
+		} else {
+			return ResponseEntity.noContent().build();
+		}
 	}
 	
-	@DeleteMapping( path = "/{id}")
+	@RequestMapping(value = "borrar/{id}", method = RequestMethod.POST)
 	public String eliminarCaso(@PathVariable("id") Long id) throws Exception {
 		boolean ok = this.casosService.eliminarCaso(id);
 		if (ok) {
@@ -58,4 +69,36 @@ public class CasosController {
 			return "No se pudo eliminar el Caso con id: " + id;
 		}
 	}
+	
+	@RequestMapping(value = "buscarporusr/{id}", method = RequestMethod.POST)
+	public ResponseEntity<ArrayList<CasosTablaDTO>> buscarPorUsrId(@PathVariable("id") Long id) throws Exception {
+		
+		List<Object[]> lstObjects = casosService.obtenerCasosPorUsrId(id);
+		List<CasosTablaDTO> lstTablaDTO = new ArrayList<>();
+		for (Object[] objetos : lstObjects) {
+			CasosTablaDTO casos = new CasosTablaDTO();
+			casos.setId(Long.parseLong(objetos[0].toString()));
+			casos.setAsunto(objetos[1].toString());
+			casos.setCreacion(Date.valueOf(objetos[2].toString()));
+			casos.setEstado(objetos[3].toString());
+			lstTablaDTO.add(casos);
+		}
+		
+		if (lstTablaDTO != null && lstTablaDTO.size() > 0) {
+			return ResponseEntity.ok(new ArrayList<>(lstTablaDTO));
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@RequestMapping(value = "buscarporfun/{id}", method = RequestMethod.POST)
+	public ResponseEntity<ArrayList<Casos>> buscarCasosAsignadosAUsr(@PathVariable("id") Long id) throws Exception {
+		ArrayList<Casos> casos = casosService.buscarCasosAsignadosAUsr(id);
+		if (casos != null) {
+			return ResponseEntity.ok(casos);
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
 }

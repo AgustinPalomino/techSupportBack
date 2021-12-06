@@ -27,8 +27,8 @@ public class Casos {
 	@Column(name = "cas_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name = "cas_fecha", nullable = false)
-	private Date casFecha;
+	@Column(name = "cas_fecha_inicio", nullable = false)
+	private Date casFechaIni;
 	
 	@Column(name = "cas_tipo", nullable = false, length = 4)
 	private String casTipo;
@@ -57,6 +57,9 @@ public class Casos {
 	
 	@Column(name = "cas_fecha_finalizado")
 	private Date casFechaFinalizado;
+	
+	@Column(name = "cas_estado", nullable = false)
+	private String casEstado;
 
 	//** Getters y setters
 	public Long getId() {
@@ -67,12 +70,12 @@ public class Casos {
 		this.id = id;
 	}
 
-	public Date getCasFecha() {
-		return casFecha;
+	public Date getCasFechaIni() {
+		return casFechaIni;
 	}
 
-	public void setCasFecha(Date casFecha) {
-		this.casFecha = casFecha;
+	public void setCasFechaIni(Date casFechaIni) {
+		this.casFechaIni = casFechaIni;
 	}
 
 	public String getCasTipo() {
@@ -146,13 +149,21 @@ public class Casos {
 	public void setCasCategoria(String casCategoria) {
 		this.casCategoria = casCategoria;
 	}
+	
+	public String getCasEstado() {
+		return casEstado;
+	}
+
+	public void setCasEstado(String casEstado) {
+		this.casEstado = casEstado;
+	}
 
 	@Override
 	public String toString() {
-		return "Casos [id=" + id + ", casFecha=" + casFecha + ", casTipo=" + casTipo + ", casCategoria=" + casCategoria
-				+ ", casSeveridad=" + casSeveridad + ", casSubject=" + casSubject + ", casDescripcion=" + casDescripcion
-				+ ", casAdjuntos=" + casAdjuntos + ", usuario=" + usuario + ", casAtiende=" + casAtiende
-				+ ", casFechaFinalizado=" + casFechaFinalizado + "]";
+		return "Casos [id=" + id + ", casFechaIni=" + casFechaIni + ", casTipo=" + casTipo + ", casCategoria="
+				+ casCategoria + ", casSeveridad=" + casSeveridad + ", casSubject=" + casSubject + ", casDescripcion="
+				+ casDescripcion + ", casAdjuntos=" + casAdjuntos + ", usuario=" + usuario + ", casAtiende="
+				+ casAtiende + ", casFechaFinalizado=" + casFechaFinalizado + ", casEstado=" + casEstado + "]";
 	}
 
 }

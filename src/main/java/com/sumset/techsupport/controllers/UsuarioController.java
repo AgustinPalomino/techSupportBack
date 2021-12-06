@@ -65,7 +65,6 @@ public class UsuarioController {
 		return ResponseEntity.ok(usr);
 	}
 
-	@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST })
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable("id") Long id) throws Exception {
 		Optional<Usuarios> usr = usuarioService.obtenerUsuarioPorId(id);
@@ -100,7 +99,7 @@ public class UsuarioController {
 	public ResponseEntity<Usuarios> autenticarUsuario(@RequestBody Usuarios usuario)
 			throws Exception, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
 			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-
+		
 		String secret = "a1b2c3d4e5";
 		String cipherText = usuario.getUsrClave();
 		byte[] cipherData = Base64.getDecoder().decode(cipherText);

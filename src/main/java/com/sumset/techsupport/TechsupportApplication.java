@@ -25,7 +25,7 @@ public class TechsupportApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// Vamos a crear la carpeta para guardar los archivos
-		adjuntosService.init();
+//		adjuntosService.init();
 	}
 
 	@Bean

@@ -61,6 +61,7 @@ public class UsuarioController {
 
 	@RequestMapping(value = "guardar", method = RequestMethod.POST)
 	public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios usuario) throws Exception {
+		System.out.println("Usuario: "+usuario.toString());
 		Usuarios usr = usuarioService.guardarUsuario(usuario);
 		return ResponseEntity.ok(usr);
 	}
@@ -93,6 +94,12 @@ public class UsuarioController {
 		} else {
 			return ResponseEntity.noContent().build();
 		}
+	}
+	
+	@RequestMapping(value = "buscartecnicos", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<Usuarios>> buscarTecnicos() throws Exception {
+		ArrayList<Usuarios> usuarios = usuarioService.buscarTecnicos();
+		return ResponseEntity.ok(usuarios);
 	}
 
 	@RequestMapping(value = "autenticar", method = RequestMethod.POST)

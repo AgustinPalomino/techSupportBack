@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sumset.techsupport.models.Casos;
 import com.sumset.techsupport.models.CasosTablaDTO;
+import com.sumset.techsupport.models.Referencia;
 
 /**
  * @author Agustín Palomino Pardo
@@ -40,4 +41,10 @@ public interface CasosRepository extends CrudRepository<Casos, Long> {
 	@Query(value = "select * from ts_casos where cas_atiende_usr_id = ?1", nativeQuery = true)
 	public abstract ArrayList<Casos> buscarCasosAsignadosAUsr(Long id);
 	
+	/**
+	 * Query para buscar los casos sin asignar
+	 * @return
+	 */
+	@Query(value = "select * from ts_casos where cas_atiende_usr_id is null", nativeQuery = true)
+	public ArrayList<Casos> buscarCasosSinAsignar();
 }

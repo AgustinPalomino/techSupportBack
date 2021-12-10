@@ -46,14 +46,14 @@ public class Casos {
 	private String casDescripcion;
 	
 	@Column(name = "cas_adjuntos")
-	private String casAdjuntos;
+	private String[] casAdjuntos;
 	
-	@JoinColumn(name = "cas_usr_id", referencedColumnName = "usr_id")
+	@JoinColumn(name = "cas_usr_id", nullable = false, referencedColumnName = "usr_id")
 	@ManyToOne
 	private Usuarios usuario;
 	
-	@Column(name = "cas_atiende_usr_id", length = 20)
-	private String casAtiende;
+	@Column(name = "cas_atiende_usr_id")
+	private Long casAtiende;
 	
 	@Column(name = "cas_fecha_finalizado")
 	private Date casFechaFinalizado;
@@ -110,11 +110,11 @@ public class Casos {
 		this.casDescripcion = casDescripcion;
 	}
 
-	public String getCasAdjuntos() {
+	public String[] getCasAdjuntos() {
 		return casAdjuntos;
 	}
 
-	public void setCasAdjuntos(String casAdjuntos) {
+	public void setCasAdjuntos(String[] casAdjuntos) {
 		this.casAdjuntos = casAdjuntos;
 	}
 
@@ -134,11 +134,11 @@ public class Casos {
 		this.casFechaFinalizado = casFechaFinalizado;
 	}
 	
-	public String getCasAtiende() {
+	public Long getCasAtiende() {
 		return casAtiende;
 	}
 
-	public void setCasAtiende(String casAtiende) {
+	public void setCasAtiende(Long casAtiende) {
 		this.casAtiende = casAtiende;
 	}
 

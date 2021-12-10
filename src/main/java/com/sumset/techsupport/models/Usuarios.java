@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 /**
  * @author Agustín Palomino Pardo
  *
@@ -42,7 +43,22 @@ public class Usuarios {
 	
 	@JoinColumn(name = "usr_emp_id", referencedColumnName = "emp_id")
 	@ManyToOne
-	private Empresa empresa;
+	private Empresa usrEmpId;
+	
+	public Usuarios() {
+		super();
+	}
+
+	public Usuarios(Long id, String usrNombre, String usrAlias, String usrClave, String usrMail, String usrRol) {
+		super();
+		this.id = id;
+		this.usrNombre = usrNombre;
+		this.usrAlias = usrAlias;
+		this.usrClave = usrClave;
+		this.usrMail = usrMail;
+		this.usrRol = usrRol;
+	}
+
 
 	//** Getters y setters
 	public Long getId() {
@@ -94,17 +110,18 @@ public class Usuarios {
 	}
 
 	public Empresa getEmpresa() {
-		return empresa;
+		return usrEmpId;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setEmpresa(Empresa usrEmpId) {
+		this.usrEmpId = usrEmpId;
 	}
 
 	@Override
 	public String toString() {
 		return "UsuariosModel [id=" + id + ", usrNombre=" + usrNombre + ", usrAlias=" + usrAlias + ", usrClave="
-				+ usrClave + ", usrMail=" + usrMail + ", usrRol=" + usrRol + ", empresa=" + empresa + "]";
+				+ usrClave + ", usrMail=" + usrMail + ", usrRol=" + usrRol + ", usrEmpId=" + usrEmpId + "]";
 	}
+
 
 }

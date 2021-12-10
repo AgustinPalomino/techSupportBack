@@ -87,5 +87,14 @@ public class CasosService {
 	public ArrayList<Casos> buscarCasosAsignadosAUsr(Long id) throws Exception {
 		return (ArrayList<Casos>) casosRepo.buscarCasosAsignadosAUsr(id);
 	}
+	
+	/**
+	 * Método para buscar loas casos que no han sido asignados
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Casos> buscarCasosSinAsignar() throws Exception {
+		return (ArrayList<Casos>) casosRepo.buscarCasosSinAsignar();
+	}
 
 }

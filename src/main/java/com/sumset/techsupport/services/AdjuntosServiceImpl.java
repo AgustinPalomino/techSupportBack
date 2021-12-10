@@ -24,25 +24,40 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	// Nombre de la carpeta donde vamos a almacenar los archivos
 	// Se crea a nivel de raiz la carpeta
-	private final Path root = Paths.get("logos");
+	// private final Path root = Paths.get("logos");
 
 	@Override
 	public void init() {
+		System.out.println("Entro a init() ");
+		Path root = Paths.get("logos");
 		try {
 			if (Files.notExists(root)) {
 				Files.createDirectory(root);
 			}
 		} catch (IOException e) {
 			throw new RuntimeException("No se puede iniciar el almacenamiento" + e);
-
+		}
+	}
+	
+	@Override
+	public void init(Long empId) {
+		System.out.println("Entro a init(empId) ");
+		Path root = Paths.get(empId.toString());
+		try {
+			if (Files.notExists(root)) {
+				Files.createDirectory(root);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("No se puede iniciar el almacenamiento" + e);
 		}
 	}
 
 	@Override
-	public void save(MultipartFile file) {
+	public void save(MultipartFile file, Long empId) {
+		Path root = Paths.get(empId.toString());
 		try {
 			// copy (que queremos copiar, a donde queremos copiar)
-			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+			Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
 		} catch (IOException e) {
 			throw new RuntimeException("No se puede guardar el archivo");
 		}
@@ -51,6 +66,7 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	@Override
 	public Resource load(String filename) {
+		Path root = Paths.get("logos");
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
@@ -71,8 +87,9 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 		// :: Referencias a metodos
 		// Relativize sirve para crear una ruta relativa entre la ruta dada y esta ruta
 
+		Path root = Paths.get("logos");
 		try {
-			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+			return Files.walk(root, 1).filter(path -> !path.equals(root)).map(root::relativize);
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException("No se pueden cargar los archivos");
 		}
@@ -80,8 +97,9 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	@Override
 	public String deleteFile(String filename) {
+		Path root = Paths.get("logos");
 		try {
-			boolean borrar = Files.deleteIfExists(this.root.resolve(filename));
+			boolean borrar = Files.deleteIfExists(root.resolve(filename));
 			return "Archivo borrado";
 		} catch (IOException e) {
 			e.printStackTrace();

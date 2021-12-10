@@ -39,13 +39,15 @@ public class AdjuntosController {
     AdjuntosService adjuntosService;
     
     @PostMapping("home/upload")
-    public ResponseEntity<FileMessage> uploadFiles(@RequestParam("files")MultipartFile[] files){
-        String message = "";
+    public ResponseEntity<FileMessage> uploadFiles(@RequestParam("files")MultipartFile[] files, @RequestParam("empId") String empId){
+    	System.out.println("Entro al servicio upload"+"- "+ files+"- " + empId);
+    	String message = "";
+        adjuntosService.init(Long.parseLong(empId));
         try{
             List<String> fileNames = new ArrayList<>();
 
             Arrays.asList(files).stream().forEach(file->{
-                adjuntosService.save(file);
+                adjuntosService.save(file, Long.parseLong(empId));
                 fileNames.add(file.getOriginalFilename());
             });
 

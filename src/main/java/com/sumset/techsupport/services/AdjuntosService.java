@@ -23,7 +23,7 @@ public interface AdjuntosService {
     /*
     Metodo para guardar los archivos
      */
-    public void save(MultipartFile file);
+    public void save(MultipartFile file, Long empId);
 
     /*
     Metodo para cargar un archivo
@@ -39,5 +39,10 @@ public interface AdjuntosService {
     Metodo para Borrar un archivo
      */
     public String deleteFile(String filename);
+
+    /*
+    Metodo para crear la carpeta donde vamos a guardar los archivos
+     */
+	void init(Long empId);
 
 }

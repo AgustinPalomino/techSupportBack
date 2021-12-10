@@ -46,6 +46,7 @@ public class CasosController {
 	
 	@RequestMapping(value = "crear", method = RequestMethod.POST)
 	public ResponseEntity<Casos> crearCaso(@RequestBody Casos caso) throws Exception {
+		System.out.println("Caso que llega: "+caso.toString());
 		Casos casoCreado = casosService.guardarCaso(caso);
 		return ResponseEntity.status(200).body(casoCreado);
 	}
@@ -94,6 +95,16 @@ public class CasosController {
 	@RequestMapping(value = "buscarporfun/{id}", method = RequestMethod.POST)
 	public ResponseEntity<ArrayList<Casos>> buscarCasosAsignadosAUsr(@PathVariable("id") Long id) throws Exception {
 		ArrayList<Casos> casos = casosService.buscarCasosAsignadosAUsr(id);
+		if (casos != null) {
+			return ResponseEntity.ok(casos);
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@RequestMapping(value = "buscarnoasinados", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<Casos>> buscarCasosSinAsignar() throws Exception {
+		ArrayList<Casos> casos = casosService.buscarCasosSinAsignar();
 		if (casos != null) {
 			return ResponseEntity.ok(casos);
 		} else {

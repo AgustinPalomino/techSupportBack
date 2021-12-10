@@ -87,5 +87,14 @@ public class UsuarioService {
 	public Usuarios autenticarUsuario(String userMail, String userPass) throws Exception {
 		return usuarioRepo.autenticarUsuario(userMail, userPass);
 	}
+	
+	/**
+	 * Método para buscar los técnicos
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Usuarios> buscarTecnicos() throws Exception {
+		return (ArrayList<Usuarios>) usuarioRepo.buscarTecnicos();
+	}
 
 }

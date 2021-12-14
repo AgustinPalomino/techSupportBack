@@ -3,6 +3,7 @@
  */
 package com.sumset.techsupport.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -41,9 +46,10 @@ public class Usuarios {
 	@Column(name = "usr_rol", nullable = false, length = 4)
 	private String usrRol;
 	
-	@JoinColumn(name = "usr_emp_id", referencedColumnName = "emp_id")
-	@ManyToOne
-	private Empresa usrEmpId;
+	@JoinColumn(name = "usr_emp_id", referencedColumnName = "emp_id", nullable = false)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private Empresa empresa;
 	
 	public Usuarios() {
 		super();
@@ -110,18 +116,17 @@ public class Usuarios {
 	}
 
 	public Empresa getEmpresa() {
-		return usrEmpId;
+		return empresa;
 	}
 
-	public void setEmpresa(Empresa usrEmpId) {
-		this.usrEmpId = usrEmpId;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override
 	public String toString() {
-		return "UsuariosModel [id=" + id + ", usrNombre=" + usrNombre + ", usrAlias=" + usrAlias + ", usrClave="
-				+ usrClave + ", usrMail=" + usrMail + ", usrRol=" + usrRol + ", usrEmpId=" + usrEmpId + "]";
+		return "Usuarios [id=" + id + ", usrNombre=" + usrNombre + ", usrAlias=" + usrAlias + ", usrClave=" + usrClave
+				+ ", usrMail=" + usrMail + ", usrRol=" + usrRol + ", empresa=" + empresa + "]";
 	}
-
 
 }

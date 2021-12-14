@@ -3,8 +3,9 @@
  */
 package com.sumset.techsupport.models;
 
-import java.util.Date;
+import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 /**
  * @author Agustín Palomino Pardo
@@ -48,8 +51,9 @@ public class Casos {
 	@Column(name = "cas_adjuntos")
 	private String[] casAdjuntos;
 	
-	@JoinColumn(name = "cas_usr_id", nullable = false, referencedColumnName = "usr_id")
-	@ManyToOne
+	@JoinColumn(name = "cas_usr_id", referencedColumnName = "usr_id", nullable = false)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Usuarios usuario;
 	
 	@Column(name = "cas_atiende_usr_id")

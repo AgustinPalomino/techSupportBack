@@ -3,13 +3,17 @@
  */
 package com.sumset.techsupport.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,6 +41,18 @@ public class Empresa {
 	@Column(name = "emp_logo")
 	//private byte[] empLogo;
 	private String empLogo;
+	
+	public Empresa() {
+		super();
+	}
+	
+	public Empresa(Long id, String empNombre, String empNit, String empTelefono) {
+		super();
+		this.id = id;
+		this.empNombre = empNombre;
+		this.empNit = empNit;
+		this.empTelefono = empTelefono;
+	}
 
 	//** Getters y setters
 	public Long getId() {
@@ -89,7 +105,7 @@ public class Empresa {
 	public void setEmpTelefono(String empTelefono) {
 		this.empTelefono = empTelefono;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Empresa [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empTelefono=" + empTelefono
@@ -101,5 +117,5 @@ public class Empresa {
 //		return "Empresa [id=" + id + ", empNombre=" + empNombre + ", empNit=" + empNit + ", empTelefono=" + empTelefono
 //				+ ", empLogo=" + Arrays.toString(empLogo) + "]";
 //	}
-
+	
 }

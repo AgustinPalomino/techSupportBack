@@ -37,4 +37,5 @@ public interface UsuarioRepository extends CrudRepository<Usuarios, Long> {
 	 */
 	@Query("select u from Usuarios u where u.usrRol like 'R03' ")
 	public ArrayList<Usuarios> buscarTecnicos();
+	
 }

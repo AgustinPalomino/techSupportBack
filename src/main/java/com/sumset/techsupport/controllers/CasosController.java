@@ -39,7 +39,6 @@ public class CasosController {
 	
 	@RequestMapping(value = "obtenertodos", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Casos>> obtenerCasos() throws Exception {
-		System.out.println("Voy a ejecutar Query");
 		ArrayList<Casos> casos = casosService.obtenerTodosCasos();
 		return ResponseEntity.status(200).body(casos);
 	}
@@ -105,6 +104,26 @@ public class CasosController {
 	@RequestMapping(value = "buscarnoasinados", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Casos>> buscarCasosSinAsignar() throws Exception {
 		ArrayList<Casos> casos = casosService.buscarCasosSinAsignar();
+		if (casos != null) {
+			return ResponseEntity.ok(casos);
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@RequestMapping(value = "pendientes", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<Casos>> buscarCasosPendientes() throws Exception {
+		ArrayList<Casos> casos = casosService.buscarCasosPendientes();
+		if (casos != null) {
+			return ResponseEntity.ok(casos);
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@RequestMapping(value = "pendientestecnico", method = RequestMethod.POST)
+	public ResponseEntity<ArrayList<Casos>> buscarCasosPendientesPorTecnico(@PathVariable("id") Long id) throws Exception {
+		ArrayList<Casos> casos = casosService.buscarCasosPendientesPorTecnico(id);
 		if (casos != null) {
 			return ResponseEntity.ok(casos);
 		} else {

@@ -22,6 +22,7 @@ public class CasosTablaDTO {
 	private Date creacion;
 	private String estado;
 	private String observaciones;
+	
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +54,4 @@ public class CasosTablaDTO {
 		this.observaciones = observaciones;
 	}
 	
-	
-
 }

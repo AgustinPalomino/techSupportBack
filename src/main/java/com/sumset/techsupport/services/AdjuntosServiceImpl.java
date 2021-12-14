@@ -28,7 +28,6 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	@Override
 	public void init() {
-		System.out.println("Entro a init() ");
 		Path root = Paths.get("logos");
 		try {
 			if (Files.notExists(root)) {
@@ -41,7 +40,6 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 	
 	@Override
 	public void init(Long empId) {
-		System.out.println("Entro a init(empId) ");
 		Path root = Paths.get(empId.toString());
 		try {
 			if (Files.notExists(root)) {

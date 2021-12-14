@@ -96,5 +96,24 @@ public class CasosService {
 	public ArrayList<Casos> buscarCasosSinAsignar() throws Exception {
 		return (ArrayList<Casos>) casosRepo.buscarCasosSinAsignar();
 	}
+	
+	/**
+	 * Método para buscar los casos pendientes
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Casos> buscarCasosPendientes() throws Exception {
+		return (ArrayList<Casos>) casosRepo.buscarCasosPendientes();
+	}
+	
+	/**
+	 * Método para buscar los casoso pendientes por cada técnico
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Casos> buscarCasosPendientesPorTecnico(Long id) throws Exception {
+		return (ArrayList<Casos>) casosRepo.buscarCasosPendientesPorTecnico(id);
+	}
 
 }

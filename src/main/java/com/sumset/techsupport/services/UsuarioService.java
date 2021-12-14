@@ -96,5 +96,5 @@ public class UsuarioService {
 	public ArrayList<Usuarios> buscarTecnicos() throws Exception {
 		return (ArrayList<Usuarios>) usuarioRepo.buscarTecnicos();
 	}
-
+	
 }

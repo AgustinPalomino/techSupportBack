@@ -47,4 +47,19 @@ public interface CasosRepository extends CrudRepository<Casos, Long> {
 	 */
 	@Query(value = "select * from ts_casos where cas_atiende_usr_id is null", nativeQuery = true)
 	public ArrayList<Casos> buscarCasosSinAsignar();
+	
+	/**
+	 * Query para listar los casos pendientes
+	 * @return
+	 */
+	@Query(value = "select * from ts_casos where cas_fecha_finalizado is null", nativeQuery = true)
+	public ArrayList<Casos> buscarCasosPendientes();
+	
+	/**
+	 * Query para listar los casoso pendientes por técnico
+	 * @param id
+	 * @return
+	 */
+	@Query(value = "select * from ts_casos where cas_fecha_finalizado is null and cas_atiende_usr_id = ?1", nativeQuery = true)
+	public abstract ArrayList<Casos> buscarCasosPendientesPorTecnico(Long id);
 }

@@ -45,7 +45,6 @@ public class CasosController {
 	
 	@RequestMapping(value = "crear", method = RequestMethod.POST)
 	public ResponseEntity<Casos> crearCaso(@RequestBody Casos caso) throws Exception {
-		System.out.println("Caso que llega: "+caso.toString());
 		Casos casoCreado = casosService.guardarCaso(caso);
 		return ResponseEntity.status(200).body(casoCreado);
 	}

@@ -64,7 +64,7 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	@Override
 	public Resource load(String filename) {
-		Path root = Paths.get("logos");
+		Path root = Paths.get("1");
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
@@ -85,8 +85,12 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 		// :: Referencias a metodos
 		// Relativize sirve para crear una ruta relativa entre la ruta dada y esta ruta
 
-		Path root = Paths.get("logos");
+		Long empId = 1L;
+		
+		Path root = Paths.get(empId.toString());
+		//Path root = Paths.get("1");
 		try {
+			System.out.println("Paso por loadAll dentro del try, voy a retornar");
 			return Files.walk(root, 1).filter(path -> !path.equals(root)).map(root::relativize);
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException("No se pueden cargar los archivos");
@@ -94,8 +98,8 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 	}
 
 	@Override
-	public String deleteFile(String filename) {
-		Path root = Paths.get("logos");
+	public String deleteFile(String filename, Long empId) {
+		Path root = Paths.get(empId.toString());
 		try {
 			boolean borrar = Files.deleteIfExists(root.resolve(filename));
 			return "Archivo borrado";

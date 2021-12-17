@@ -26,19 +26,19 @@ public interface AdjuntosService {
     public void save(MultipartFile file, Long empId);
 
     /*
-    Metodo para cargar un archivo
+    Metodo para cargar un archivo desde la carpeta
      */
     public Resource load(String filename);
 
     /*
-    Metodo para Cargar todos los archivos
+    Metodo para Cargar todos los archivos desde la carpeta
      */
     public Stream<Path> loadAll();
 
     /*
     Metodo para Borrar un archivo
      */
-    public String deleteFile(String filename);
+    public String deleteFile(String filename, Long empId);
 
     /*
     Metodo para crear la carpeta donde vamos a guardar los archivos

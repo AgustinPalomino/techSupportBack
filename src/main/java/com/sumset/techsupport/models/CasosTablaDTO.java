@@ -8,7 +8,7 @@ import java.sql.Date;
 import jdk.jfr.DataAmount;
 
 /**
- * @author SAgustín Palomino Pardo
+ * @author Agustín Palomino Pardo
  *
  */
 public class CasosTablaDTO {

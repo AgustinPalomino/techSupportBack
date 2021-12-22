@@ -62,14 +62,14 @@ public class AdjuntosController {
 
     //Método para obtener la lista de los archivos guardados
     //@GetMapping("home/files/{empId}")
-    @RequestMapping(value = "home/files", method = RequestMethod.POST)
-    public ResponseEntity<List<Adjuntos>> getFiles() {
+    @RequestMapping(value = "home/files/{empid}", method = RequestMethod.POST)
+    public ResponseEntity<List<Adjuntos>> getFiles(@PathVariable String empid) {
     	System.out.println("ENTRO A GETFILES");
-    	List<Adjuntos> fileInfos = adjuntosService.loadAll().map(path -> {
+    	List<Adjuntos> fileInfos = adjuntosService.loadAll(empid).map(path -> {
     		String fileName = path.getFileName().toString();
     		System.out.println("FileName: "+fileName);
     		String url = MvcUriComponentsBuilder.fromMethodName(AdjuntosController.class, 
-    				"getFile", path.getFileName().toString()).build().toString();
+    				"getFile", empid, path.getFileName().toString()).build().toString();
     		System.out.println("URL: "+url);
     		return new Adjuntos(fileName, url);
     	}).collect(Collectors.toList());
@@ -78,15 +78,17 @@ public class AdjuntosController {
     }
 
 
-    @GetMapping("home/file/{filename:.+}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename){
-        Resource file = adjuntosService.load(filename);
+    //@GetMapping("home/file/{empId}/{filename:.+}")
+    @RequestMapping(value = "home/file/{empId}/{filename}", method = RequestMethod.POST)
+    public ResponseEntity<Resource> getFile(@PathVariable String empid, @PathVariable String filename){
+        Resource file = adjuntosService.load(empid, filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\""+file.getFilename() + "\"").body(file);
     }
 
-    @GetMapping("/delete/{filename:.+}")
-    public ResponseEntity<FileMessage> deleteFile(@PathVariable String filename, @RequestParam("empId") Long empId) {
+    //@GetMapping("/delete/{filename:.+}")
+    @RequestMapping(value = "home/delete/{empId}/{filename:.+}", method = RequestMethod.POST)
+    public ResponseEntity<FileMessage> deleteFile(@PathVariable String filename, @PathVariable("empId") Long empId) {
         String message = "";
         try {
             message = adjuntosService.deleteFile(filename, empId);

@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.function.LongPredicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sumset.techsupport.models.Adjuntos;
+import com.sumset.techsupport.models.CasoConAdjuntos;
 import com.sumset.techsupport.models.Casos;
 import com.sumset.techsupport.models.CasosTablaDTO;
+import com.sumset.techsupport.services.AdjuntosService;
 import com.sumset.techsupport.services.CasosService;
 
 /**
@@ -36,6 +40,8 @@ public class CasosController {
 
 	@Autowired
 	CasosService casosService;
+	@Autowired
+	AdjuntosService adjuntosService;
 	
 	@RequestMapping(value = "obtenertodos", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Casos>> obtenerCasos() throws Exception {
@@ -58,6 +64,38 @@ public class CasosController {
 		} else {
 			return ResponseEntity.noContent().build();
 		}
+	}
+	
+	@RequestMapping(value = "poridAdj/{id}", method = RequestMethod.POST)
+	public ResponseEntity<CasoConAdjuntos> obtenerCaspoPorIdAdjuntos(@PathVariable("id") Long id) throws Exception {
+		System.out.println("ID que llega: "+id);
+		Optional<Casos> caso = casosService.obtenerCasoPorId(id);
+		System.out.println("Caso obtenido de la consulta: "+caso.toString());
+		CasoConAdjuntos casoCon = new CasoConAdjuntos();
+		List<Adjuntos> lstAdjuntos = new ArrayList<>();
+		if (!caso.isEmpty()) {	
+			casoCon.setId(caso.get().getId());
+			casoCon.setCreacion(caso.get().getCasFechaIni());
+			casoCon.setTipo(caso.get().getCasTipo());
+			casoCon.setCategoria(caso.get().getCasCategoria());
+			casoCon.setSeveridad(caso.get().getCasSeveridad());
+			casoCon.setAsunto(caso.get().getCasSubject());
+			casoCon.setDescripcion(caso.get().getCasDescripcion());
+			casoCon.setSolicita(caso.get().getUsuario().getId());
+			
+			for (String adj : caso.get().getCasAdjuntos()) {
+				Adjuntos adjunto = new Adjuntos();
+				adjunto.setName(adj);
+				String empid = caso.get().getUsuario().getEmpresa().getId().toString();
+				//Resource url = adjuntosService.load(empid, adj);
+				adjunto.setUrl(adjuntosService.load(empid, adj));
+				//adjunto.setUrl(url.toString());
+				lstAdjuntos.add(adjunto);
+			}
+			casoCon.setAdjuntos(lstAdjuntos);
+			return ResponseEntity.ok(casoCon);
+		}
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "borrar/{id}", method = RequestMethod.POST)

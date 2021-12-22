@@ -63,8 +63,9 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 	}
 
 	@Override
-	public Resource load(String filename) {
-		Path root = Paths.get("1");
+	public Resource load(String empId, String filename) {
+		System.out.println("Parametros que llegan al load:"+empId+", "+filename);
+		Path root = Paths.get(empId);
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
@@ -79,18 +80,15 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 	}
 
 	@Override
-	public Stream<Path> loadAll() {
+	public Stream<Path> loadAll(String empId) {
 		// Files.walk recorre nuestras carpetas (uploads) buscando los archivos
 		// el 1 es la profundidad o nivel que queremos recorrer
 		// :: Referencias a metodos
 		// Relativize sirve para crear una ruta relativa entre la ruta dada y esta ruta
 
-		Long empId = 1L;
-		
 		Path root = Paths.get(empId.toString());
 		//Path root = Paths.get("1");
 		try {
-			System.out.println("Paso por loadAll dentro del try, voy a retornar");
 			return Files.walk(root, 1).filter(path -> !path.equals(root)).map(root::relativize);
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException("No se pueden cargar los archivos");

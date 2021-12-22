@@ -28,12 +28,12 @@ public interface AdjuntosService {
     /*
     Metodo para cargar un archivo desde la carpeta
      */
-    public Resource load(String filename);
+    public Resource load(String empid, String filename);
 
     /*
     Metodo para Cargar todos los archivos desde la carpeta
      */
-    public Stream<Path> loadAll();
+    public Stream<Path> loadAll(String empid);
 
     /*
     Metodo para Borrar un archivo

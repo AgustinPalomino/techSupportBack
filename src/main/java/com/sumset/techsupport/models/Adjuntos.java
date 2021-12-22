@@ -3,6 +3,8 @@
  */
 package com.sumset.techsupport.models;
 
+import org.springframework.core.io.Resource;
+
 /**
  * @author Agustín Palomino Pardo
  *
@@ -35,5 +37,9 @@ public class Adjuntos {
     public void setUrl(String url) {
         this.url = url;
     }
+
+	public void setUrl(Resource load) {
+		this.url = load.toString();
+	}
 
 }

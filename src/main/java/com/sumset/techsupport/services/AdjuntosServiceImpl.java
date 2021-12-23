@@ -64,7 +64,6 @@ public class AdjuntosServiceImpl implements AdjuntosService {
 
 	@Override
 	public Resource load(String empId, String filename) {
-		System.out.println("Parametros que llegan al load:"+empId+", "+filename);
 		Path root = Paths.get(empId);
 		try {
 			Path file = root.resolve(filename);

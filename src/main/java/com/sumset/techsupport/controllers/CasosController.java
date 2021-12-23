@@ -68,9 +68,7 @@ public class CasosController {
 	
 	@RequestMapping(value = "poridAdj/{id}", method = RequestMethod.POST)
 	public ResponseEntity<CasoConAdjuntos> obtenerCaspoPorIdAdjuntos(@PathVariable("id") Long id) throws Exception {
-		System.out.println("ID que llega: "+id);
 		Optional<Casos> caso = casosService.obtenerCasoPorId(id);
-		System.out.println("Caso obtenido de la consulta: "+caso.toString());
 		CasoConAdjuntos casoCon = new CasoConAdjuntos();
 		List<Adjuntos> lstAdjuntos = new ArrayList<>();
 		if (!caso.isEmpty()) {	
